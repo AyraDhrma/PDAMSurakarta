@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#4787C2</color>
+    <color name="colorPrimaryDark">#0D47A1</color>
+    <color name="colorAccent">#2962FF</color>
+    <color name="colorBackground">#FFFFFF</color>
+    <color name="colorPrimaryBlue">#4787C2</color>
+    <color name="colorRed">#F44336</color>
+    <color name="colorMenuPalette">#D6D4AF</color>
+    <color name="colorWhite">#FDFDFD</color>
+    <color name="shimmerColor">#DDDDDD</color>
+    <color name="colorMaterialBlue">#E5F1F8</color>
+    <color name="colorMaterialRed">#F44336</color>
+    <color name="colorMaterialBlue500">#2196F3</color>
+    <color name="colorMaterialLime">#CDDC39</color>
+    <color name="colorMaterialLimeA400">#C6FF00</color>
+</resources>

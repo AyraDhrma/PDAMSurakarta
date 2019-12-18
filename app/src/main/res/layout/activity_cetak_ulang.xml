@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.CetakUlangActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/toolbar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryDark"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center_horizontal|center_vertical"
+            android:theme="@style/toolbar_theme"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="6dp"
+        android:padding="12dp">
+
+        <TextView
+            android:id="@+id/title_cetak_ulang"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/check_all_transaction"
+            android:textColor="@color/colorPrimaryDark" />
+
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/noMeter"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/title_cetak_ulang"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="6dp"
+            android:drawableStart="@drawable/ic_person"
+            android:drawablePadding="8dp"
+            android:hint="@string/no_meter_id_pel"
+            android:inputType="number"
+            app:met_floatingLabel="highlight"
+            app:met_primaryColor="@color/colorPrimaryDark" />
+
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/tanggal"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/noMeter"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="6dp"
+            android:drawableStart="@drawable/ic_date"
+            android:drawablePadding="8dp"
+            android:focusableInTouchMode="false"
+            android:hint="@string/date"
+            android:inputType="text"
+            app:met_floatingLabel="highlight"
+            app:met_primaryColor="@color/colorPrimaryDark" />
+
+        <Button
+            android:id="@+id/button_print"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tanggal"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/button_check"
+            android:drawableStart="@drawable/ic_search"
+            android:fontFamily="@font/solway_regular"
+            android:gravity="center_vertical|center_horizontal"
+            android:padding="8dp"
+            android:text="@string/check"
+            android:textAlignment="center"
+            android:textColor="@color/colorBackground" />
+    </RelativeLayout>
+</LinearLayout>
