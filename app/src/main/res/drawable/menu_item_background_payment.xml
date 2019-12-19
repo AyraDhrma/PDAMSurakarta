@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ripple xmlns:android="http://schemas.android.com/apk/res/android"
-    android:color="@color/blue_btn_bg_pressed_color">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:color="@color/blue_btn_bg_pressed_color"
+    tools:ignore="NewApi">
     <item>
         <shape>
             <padding android:padding="1dp" />
             <corners android:radius="8dp" />
-            <solid android:color="@color/colorMaterialRed" />
+            <solid android:color="@color/colorPrimaryDark" />
         </shape>
     </item>
 </ripple>
