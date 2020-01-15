@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -78,7 +77,7 @@ public class InquiryDialogActivity extends AppCompatActivity {
     Gson gson;
     int totalPrice;
     int totalTagihan;
-    ArrayList<String> periode;
+    String periode;
     LibraryManager libraryManager;
     SharedPreferencesManager sharedPreferencesManager;
     MySingleton mySingleton;
@@ -113,8 +112,7 @@ public class InquiryDialogActivity extends AppCompatActivity {
         public void onReceive(Context context, Intent intent) {
             totalPrice = intent.getIntExtra("total", 0);
             totalTagihan = intent.getIntExtra("total_tagihan", 0);
-            periode = intent.getStringArrayListExtra("periode");
-            Toast.makeText(context, String.valueOf(periode), Toast.LENGTH_SHORT).show();
+            periode = intent.getStringExtra("periode");
             tvTotalTagihan.setText("Rp " + NumberFormat.getNumberInstance(new Locale("in", "ID")).format(totalPrice));
         }
     };
@@ -228,7 +226,7 @@ public class InquiryDialogActivity extends AppCompatActivity {
         // Parameter API POST
         uuid = getResources().getString(R.string.tele_android) + sharedPreferencesManager.loadUniqueDevice() + getResources().getString(R.string.indonesia);
         ppid = sharedPreferencesManager.loadUserPass();
-        udata = getResources().getString(R.string.product_pdam) + "|" + nometer_idpel + "|" + respid;
+        udata = getResources().getString(R.string.product_pdam) + "|" + nometer_idpel + "|" + respid + "|" + totalTagihan + "|" + "" + "|" + periode;
 
         // Hit API PAYMENT
         mySingleton.connectApi(version.getUri() + getResources().getString(R.string.trx_pay), uuid, ppid, udata, response -> {

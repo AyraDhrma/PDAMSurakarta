@@ -63,6 +63,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         holder.checkBox.setOnClickListener(view -> {
             int total = 0;
             int totalTagihan = 0;
+            String s = "";
             Inquiry.RespData data1 = (Inquiry.RespData) holder.checkBox.getTag();
             data1.setSelected(holder.checkBox.isChecked());
             respDatas.get(position).setSelected(holder.checkBox.isChecked());
@@ -72,12 +73,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                     total += respDatas.get(i).getTotal();
                     totalTagihan += respDatas.get(i).getTagihan();
                     periode.add(respDatas.get(i).getBlth());
+                    s = periode.toString().replace("[", "['").replace("]", "']").replace(" ", "").replace(",", "','");
                 }
             }
             Intent intent = new Intent("total_price");
             intent.putExtra("total", total);
             intent.putExtra("total_tagihan", totalTagihan);
-            intent.putExtra("periode", periode);
+            intent.putExtra("periode", s);
             LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
         });
 
