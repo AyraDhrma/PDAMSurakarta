@@ -1,7 +1,10 @@
 package com.ayra.pdamsurakarta.ui;
 
 import android.annotation.SuppressLint;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.SpannableString;
@@ -13,11 +16,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.widget.NestedScrollView;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -71,13 +76,16 @@ public class InquiryDialogActivity extends AppCompatActivity {
     String nometer_idpel, nama, tarifdaya, rp_admin, respdata, respid, dataInquiry, nomorregistrasi, uuid, ppid, udata;
     List<Inquiry.RespData> respdatums;
     Gson gson;
+    int totalPrice;
     int totalTagihan;
+    ArrayList<String> periode;
     LibraryManager libraryManager;
     SharedPreferencesManager sharedPreferencesManager;
     MySingleton mySingleton;
     Version version;
     Payment payment;
     JsonObject value;
+    RecyclerViewAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,6 +107,17 @@ public class InquiryDialogActivity extends AppCompatActivity {
         // Listener
         listener();
     }
+
+    public BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            totalPrice = intent.getIntExtra("total", 0);
+            totalTagihan = intent.getIntExtra("total_tagihan", 0);
+            periode = intent.getStringArrayListExtra("periode");
+            Toast.makeText(context, String.valueOf(periode), Toast.LENGTH_SHORT).show();
+            tvTotalTagihan.setText("Rp " + NumberFormat.getNumberInstance(new Locale("in", "ID")).format(totalPrice));
+        }
+    };
 
     // Setup Toolbar
     private void setupToolbar() {
@@ -126,6 +145,8 @@ public class InquiryDialogActivity extends AppCompatActivity {
         mySingleton = MySingleton.getInstance(this);
         gson = new Gson();
         version = sharedPreferencesManager.loadVersion();
+        LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver,
+                new IntentFilter("total_price"));
     }
 
     // Get Bundle To Inquiry
@@ -158,10 +179,11 @@ public class InquiryDialogActivity extends AppCompatActivity {
         }.getType());
 
         // Init recycle view
+        adapter = new RecyclerViewAdapter(this, respdatums, "pdam");
         recyclerView.setVisibility(View.VISIBLE);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        recyclerView.setAdapter(new RecyclerViewAdapter(this, respdatums, "pdam"));
+        recyclerView.setAdapter(adapter);
 
         // Add the dataInquiry for TextView FirstData
         dataInquiry =
@@ -181,12 +203,6 @@ public class InquiryDialogActivity extends AppCompatActivity {
 
         // Set the text
         firstData.setText(colorText);
-
-        // Set total tagihan
-        for (Inquiry.RespData respData : respdatums) {
-            totalTagihan += respData.getTotal();
-        }
-        tvTotalTagihan.setText("Rp " + NumberFormat.getNumberInstance(new Locale("in", "ID")).format(totalTagihan));
     }
 
     // Set btn clicked
@@ -228,21 +244,6 @@ public class InquiryDialogActivity extends AppCompatActivity {
             libraryManager.loadingDismiss();
         });
     }
-
-    // Set Dialog Size
-//    private void setDialogSize(int size1, int size2) {
-//        DisplayMetrics displayMetrics = new DisplayMetrics();
-//        this.getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-//        int width = displayMetrics.widthPixels;
-//
-//        if (width > 720) {
-//            scrollView.getLayoutParams().width = size1;
-//            scrollView.getLayoutParams().height = size1;
-//        } else {
-//            scrollView.getLayoutParams().width = size2;
-//            scrollView.getLayoutParams().height = size2;
-//        }
-//    }
 
     // Response Listener To Struck
     private void response(String response) {

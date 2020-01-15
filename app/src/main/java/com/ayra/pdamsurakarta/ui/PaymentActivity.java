@@ -69,7 +69,7 @@ public class PaymentActivity extends AppCompatActivity {
 
         // Set
         etProduct.setText(product);
-        idProduct = "TELE-PDAM-SURAKARTA";
+        idProduct = "TELE-PDAM-SURAKARTA_V2";
 
         // Setup Toolbar
         setupToolbar();

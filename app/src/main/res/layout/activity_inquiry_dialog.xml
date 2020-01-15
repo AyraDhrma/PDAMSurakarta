@@ -192,7 +192,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/garis2"
             android:layout_marginStart="8dp"
-            android:text="Rp 50.000"
+            android:text="0"
             android:textColor="#FF5722"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="@+id/text"

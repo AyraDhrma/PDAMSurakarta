@@ -2,6 +2,7 @@ package com.ayra.pdamsurakarta.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.text.SpannableString;
 import android.text.Spanned;
@@ -11,15 +12,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ayra.pdamsurakarta.R;
 import com.ayra.pdamsurakarta.entity.Inquiry;
 
 import java.text.NumberFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -53,22 +55,31 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         Inquiry.RespData respData = respDatas.get(position);
         setView(respData, position, holder);
 
+        ArrayList<String> periode = new ArrayList<>();
         // Checkbox Item
-//        holder.checkBox.setChecked(respData.isSelected());
-//        holder.checkBox.setTag(respDatas.get(position));
-//
-//        holder.checkBox.setOnClickListener(view -> {
-//            StringBuilder data = new StringBuilder();
-//            Inquiry.RespData data1 = (Inquiry.RespData) holder.checkBox.getTag();
-//            data1.setSelected(holder.checkBox.isChecked());
-//            respDatas.get(position).setSelected(holder.checkBox.isChecked());
-//            for (int i = 0; i < respDatas.size(); i++) {
-//                if (respDatas.get(i).isSelected()) {
-//                    data.append("\n").append(respDatas.get(i).getCustname()).append(" ").append(respDatas.get(i).getBlth());
-//                }
-//            }
-//            Toast.makeText(context, "Selected : \n" + data, Toast.LENGTH_SHORT).show();
-//        });
+        holder.checkBox.setChecked(respData.isSelected());
+        holder.checkBox.setTag(respDatas.get(position));
+
+        holder.checkBox.setOnClickListener(view -> {
+            int total = 0;
+            int totalTagihan = 0;
+            Inquiry.RespData data1 = (Inquiry.RespData) holder.checkBox.getTag();
+            data1.setSelected(holder.checkBox.isChecked());
+            respDatas.get(position).setSelected(holder.checkBox.isChecked());
+            periode.clear();
+            for (int i = 0; i < respDatas.size(); i++) {
+                if (respDatas.get(i).isSelected()) {
+                    total += respDatas.get(i).getTotal();
+                    totalTagihan += respDatas.get(i).getTagihan();
+                    periode.add(respDatas.get(i).getBlth());
+                }
+            }
+            Intent intent = new Intent("total_price");
+            intent.putExtra("total", total);
+            intent.putExtra("total_tagihan", totalTagihan);
+            intent.putExtra("periode", periode);
+            LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
+        });
 
     }
 

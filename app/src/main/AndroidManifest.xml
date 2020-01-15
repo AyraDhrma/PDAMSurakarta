@@ -13,10 +13,10 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/logo"
+        android:icon="@drawable/logo_baru"
         android:label="@string/app_name"
-        android:logo="@drawable/logo"
-        android:roundIcon="@drawable/logo"
+        android:logo="@drawable/logo_baru"
+        android:roundIcon="@drawable/logo_baru"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
