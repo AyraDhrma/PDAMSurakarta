@@ -77,7 +77,7 @@ public class InquiryDialogActivity extends AppCompatActivity {
     Gson gson;
     int totalPrice;
     int totalTagihan;
-    String periode;
+    String periode, denda;
     LibraryManager libraryManager;
     SharedPreferencesManager sharedPreferencesManager;
     MySingleton mySingleton;
@@ -171,6 +171,7 @@ public class InquiryDialogActivity extends AppCompatActivity {
         nomorregistrasi = bundle.getString("awal");
         respdata = bundle.getString("akhir");
         respid = bundle.getString("respid");
+        denda = bundle.getString("denda");
 
         // Store list data in transaction class
         respdatums = gson.fromJson(respdata, new TypeToken<ArrayList<Inquiry.RespData>>() {

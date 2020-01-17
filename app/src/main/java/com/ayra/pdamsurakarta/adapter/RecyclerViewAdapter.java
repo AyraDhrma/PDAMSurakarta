@@ -71,7 +71,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             for (int i = 0; i < respDatas.size(); i++) {
                 if (respDatas.get(i).isSelected()) {
                     total += respDatas.get(i).getTotal();
-                    totalTagihan += respDatas.get(i).getTagihan();
+                    totalTagihan += respDatas.get(i).getTagihan() + Integer.parseInt(respDatas.get(i).getDenda());
                     periode.add(respDatas.get(i).getBlth());
                     s = periode.toString().replace("[", "['").replace("]", "']").replace(" ", "").replace(",", "','");
                 }
@@ -88,29 +88,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     // Set View
     @SuppressLint("SetTextI18n")
     private void setView(Inquiry.RespData respData, int position, ViewHolder holder) {
-        if (product.equals("bpjs")) {
-            holder.month.setText("# Data " + (position + 1));
-            text = "\tCust ID  : " + respData.getCustno() + "\n" +
-                    "\tNama     : " + respData.getCustname() + "\n" +
-                    "\tTagihan  : " + "Rp " + NumberFormat.getNumberInstance(new Locale("in", "ID")).format(respData.getAmount());
-
-            colorText = new SpannableString(text);
-            colorText.setSpan(new ForegroundColorSpan(Color.parseColor("#FF5722")), text.indexOf(respData.getCustno()), text.indexOf(respData.getCustno()) + respData.getCustno().length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-            colorText.setSpan(new ForegroundColorSpan(Color.parseColor("#FF5722")), text.indexOf(respData.getCustname()), text.indexOf(respData.getCustname()) + respData.getCustname().length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-            colorText.setSpan(new ForegroundColorSpan(Color.parseColor("#FF5722")), text.indexOf("Rp " + NumberFormat.getNumberInstance(new Locale("in", "ID")).format(respData.getAmount())), text.indexOf("Rp " + NumberFormat.getNumberInstance(new Locale("in", "ID")).format(respData.getAmount())) + ("Rp " + NumberFormat.getNumberInstance(new Locale("in", "ID")).format(respData.getAmount())).length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-
-        } else {
-            holder.month.setText(respData.getBlth());
-            text = "\tTagihan  : " + "Rp " + NumberFormat.getNumberInstance(new Locale("in", "ID")).format(respData.getTagihan()) + "\n" +
-                    "\tAdmin    : " + "Rp " + NumberFormat.getNumberInstance(new Locale("in", "ID")).format(respData.getAdmin()) + "\n" +
-                    "\tTotal    : " + "Rp " + NumberFormat.getNumberInstance(new Locale("in", "ID")).format(respData.getTotal());
-
-            colorText = new SpannableString(text);
-            colorText.setSpan(new ForegroundColorSpan(Color.parseColor("#FF5722")), text.indexOf("Rp " + NumberFormat.getNumberInstance(new Locale("in", "ID")).format(respData.getTagihan())), text.indexOf("Rp " + NumberFormat.getNumberInstance(new Locale("in", "ID")).format(respData.getTagihan())) + ("Rp " + NumberFormat.getNumberInstance(new Locale("in", "ID")).format(respData.getTagihan())).length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-            colorText.setSpan(new ForegroundColorSpan(Color.parseColor("#FF5722")), text.indexOf("Rp " + NumberFormat.getNumberInstance(new Locale("in", "ID")).format(respData.getAdmin())), text.indexOf("Rp " + NumberFormat.getNumberInstance(new Locale("in", "ID")).format(respData.getAdmin())) + ("Rp " + NumberFormat.getNumberInstance(new Locale("in", "ID")).format(respData.getAdmin())).length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-            colorText.setSpan(new ForegroundColorSpan(Color.parseColor("#FF5722")), text.indexOf("Rp " + NumberFormat.getNumberInstance(new Locale("in", "ID")).format(respData.getTotal())), text.indexOf("Rp " + NumberFormat.getNumberInstance(new Locale("in", "ID")).format(respData.getTotal())) + ("Rp " + NumberFormat.getNumberInstance(new Locale("in", "ID")).format(respData.getTotal())).length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        }
-        holder.secondData.setText(colorText);
+        holder.month.setText(respData.getBlth());
+        int denda = Integer.parseInt(respData.getDenda());
+        holder.tagihan.setText("Rp " + NumberFormat.getNumberInstance(new Locale("in", "ID")).format(respData.getTagihan()));
+        holder.denda.setText("Rp " + NumberFormat.getNumberInstance(new Locale("in", "ID")).format(denda));
+        holder.admin.setText("Rp " + NumberFormat.getNumberInstance(new Locale("in", "ID")).format(respData.getAdmin()));
+        holder.total.setText("Rp " + NumberFormat.getNumberInstance(new Locale("in", "ID")).format(respData.getTotal()));
     }
 
     @Override
@@ -124,8 +107,14 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         CheckBox checkBox;
         @BindView(R.id.bulan)
         TextView month;
-        @BindView(R.id.secondData)
-        TextView secondData;
+        @BindView(R.id.tagihan_content)
+        TextView tagihan;
+        @BindView(R.id.denda_content)
+        TextView denda;
+        @BindView(R.id.admin_content)
+        TextView admin;
+        @BindView(R.id.total_content)
+        TextView total;
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);

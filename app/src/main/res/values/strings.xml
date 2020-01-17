@@ -50,7 +50,7 @@
     <string name="printing">Printing</string>
     <string name="success_save">Berhasil di save</string>
     <string name="pay">Bayar</string>
-    <string name="month">Bulan</string>
+    <string name="month">Periode :</string>
     <string name="cancel">Batal</string>
     <string name="inquiry">Inquiry</string>
     <string name="date">Tanggal</string>
@@ -71,4 +71,8 @@
     <string name="bill">Bill Data</string>
     <string name="list_bill">Daftar Tagihan :</string>
     <string name="payment_detail">Detail Pembayaran</string>
+    <string name="tagihan_title">Tagihan</string>
+    <string name="denda_title">Denda</string>
+    <string name="admin_title">Biaya Admin</string>
+    <string name="total_pembayaran_title">Total Pembayaran</string>
 </resources>

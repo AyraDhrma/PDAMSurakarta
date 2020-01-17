@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/colorMaterialBlue">
@@ -21,13 +22,30 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginStart="48dp"
+        android:paddingBottom="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/inquiry_checkbox"
         app:layout_constraintTop_toTopOf="@id/inquiry_checkbox">
 
         <TextView
             android:id="@+id/bulan"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:fontFamily="@font/solway_regular"
+            android:lineSpacingExtra="1dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:text="@string/month"
+            android:textColor="@color/colorBackground"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/bulan_title"
+            app:layout_constraintTop_toTopOf="@+id/inquiry_constraint" />
+
+        <TextView
+            android:id="@+id/bulan_title"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@color/colorPrimary"
             android:fontFamily="@font/solway_regular"
@@ -36,23 +54,99 @@
             android:text="@string/month"
             android:textColor="@color/colorBackground"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="@+id/inquiry_constraint"
             app:layout_constraintStart_toStartOf="@+id/inquiry_constraint"
             app:layout_constraintTop_toTopOf="@+id/inquiry_constraint" />
 
         <TextView
-            android:id="@+id/secondData"
-            android:layout_width="match_parent"
+            android:id="@+id/tagihan_title"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/bulan"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:fontFamily="@font/solway_regular"
-            android:lineSpacingExtra="6dp"
-            android:textColor="@color/colorAccent"
-            app:layout_constraintEnd_toEndOf="@id/bulan"
-            app:layout_constraintStart_toStartOf="@id/bulan"
-            app:layout_constraintTop_toBottomOf="@id/bulan" />
+            android:text="@string/tagihan_title"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/bulan" />
+
+        <TextView
+            android:id="@+id/tagihan_content"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="54dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:text="@string/tagihan_title"
+            android:textColor="@color/colorTextInquiry"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/total_title"
+            app:layout_constraintTop_toBottomOf="@+id/bulan" />
+
+        <TextView
+            android:id="@+id/denda_content"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:text="@string/tagihan_title"
+            android:textColor="@color/colorTextInquiry"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/tagihan_content"
+            app:layout_constraintTop_toTopOf="@+id/denda_title" />
+
+        <TextView
+            android:id="@+id/admin_content"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:text="@string/tagihan_title"
+            android:textColor="@color/colorTextInquiry"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/denda_content"
+            app:layout_constraintTop_toTopOf="@+id/admin_title" />
+
+        <TextView
+            android:id="@+id/total_content"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:text="@string/tagihan_title"
+            android:textColor="@color/colorTextInquiry"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/admin_content"
+            app:layout_constraintTop_toTopOf="@+id/total_title" />
+
+        <TextView
+            android:id="@+id/denda_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/denda_title"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tagihan_title" />
+
+        <TextView
+            android:id="@+id/admin_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/admin_title"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/denda_title" />
+
+        <TextView
+            android:id="@+id/total_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/total_pembayaran_title"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/admin_title" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -147,7 +147,7 @@ public class PaymentActivity extends AppCompatActivity {
                 respDataInquiry = new ArrayList<>();
             }
 
-            setToInquiryDialog(product, idProduct, respDataInquiry.get(0).getNopel(), respDataInquiry.get(0).getNama(), respDataInquiry.get(0).getAlamat(), respDataInquiry.get(0).getTarif(), respDataInquiry.get(0).getStanAwal() + "-" + respDataInquiry.get(0).getStanAkhir(), gson.toJson(inquiry.getRespdata()), 0, inquiry.getRespid());
+            setToInquiryDialog(product, idProduct, respDataInquiry.get(0).getNopel(), respDataInquiry.get(0).getNama(), respDataInquiry.get(0).getAlamat(), respDataInquiry.get(0).getTarif(), respDataInquiry.get(0).getStanAwal() + "-" + respDataInquiry.get(0).getStanAkhir(), gson.toJson(inquiry.getRespdata()), 0, inquiry.getRespid(), respDataInquiry.get(0).getDenda());
             // Dismiss loading
             libraryManager.loadingDismiss();
         } else {
@@ -159,7 +159,7 @@ public class PaymentActivity extends AppCompatActivity {
     }
 
     // Set To Bundle
-    private void setToInquiryDialog(String pdam, String idProduct, String nopel, String nama, String alamat, String tarif, String awal, String akhir, int respdata, String respid) {
+    private void setToInquiryDialog(String pdam, String idProduct, String nopel, String nama, String alamat, String tarif, String awal, String akhir, int respdata, String respid, String denda) {
         bundle = new Bundle();
         bundle.putString("dialog", pdam);
         bundle.putString("idProduct", idProduct);
@@ -171,6 +171,7 @@ public class PaymentActivity extends AppCompatActivity {
         bundle.putString("akhir", akhir);
         bundle.putInt("respdata", respdata);
         bundle.putString("respid", respid);
+        bundle.putString("denda", denda);
 
         Intent intent = new Intent(this, InquiryDialogActivity.class);
         intent.putExtras(bundle);

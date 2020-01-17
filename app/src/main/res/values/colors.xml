@@ -14,4 +14,5 @@
     <color name="colorMaterialBlue500">#2196F3</color>
     <color name="colorMaterialLime">#CDDC39</color>
     <color name="colorMaterialLimeA400">#C6FF00</color>
+    <color name="colorTextInquiry">#FF5722</color>
 </resources>
