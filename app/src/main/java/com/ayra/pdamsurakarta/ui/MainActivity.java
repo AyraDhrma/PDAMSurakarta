@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.Menu;
@@ -99,40 +100,47 @@ public class MainActivity extends AppCompatActivity {
     }
 
     // Hit API For Saldo And Username
+    @SuppressLint("StaticFieldLeak")
     private void setSaldo() {
-        uuid = getResources().getString(R.string.tele_android) + preferencesManager.loadUniqueDevice() + getResources().getString(R.string.indonesia);
-        ppid = preferencesManager.loadUserPass();
-        udata = "";
-
-        mySingleton.connectApi(version.getUri() + getResources().getString(R.string.content_menu), uuid, ppid, udata, new Response.Listener<JSONObject>() {
-            @SuppressLint("SetTextI18n")
+        new AsyncTask<Void, Void, Void>() {
             @Override
-            public void onResponse(JSONObject response) {
-                menu = gson.fromJson(response.toString(), com.ayra.pdamsurakarta.entity.Menu.class);
+            protected Void doInBackground(Void... voids) {
+                uuid = getResources().getString(R.string.tele_android) + preferencesManager.loadUniqueDevice() + getResources().getString(R.string.indonesia);
+                ppid = preferencesManager.loadUserPass();
+                udata = "";
 
-                if (menu.getResponse().equals("SWT:0000")) {
-                    preferencesManager.updateSaldo(menu.getSaldo());
+                mySingleton.connectApi(version.getUri() + getResources().getString(R.string.content_menu), uuid, ppid, udata, new Response.Listener<JSONObject>() {
+                    @SuppressLint("SetTextI18n")
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        menu = gson.fromJson(response.toString(), com.ayra.pdamsurakarta.entity.Menu.class);
 
-                    dataList = gson.fromJson(gson.toJson(menu.getDatas()),
-                            new TypeToken<ArrayList<com.ayra.pdamsurakarta.entity.Menu.Data>>() {
-                            }.getType());
+                        if (menu.getResponse().equals("SWT:0000")) {
+                            preferencesManager.updateSaldo(menu.getSaldo());
+
+                            dataList = gson.fromJson(gson.toJson(menu.getDatas()),
+                                    new TypeToken<ArrayList<com.ayra.pdamsurakarta.entity.Menu.Data>>() {
+                                    }.getType());
 
 //                    shimmerFrameLayout.stopShimmer();
 //                    shimmerFrameLayout.setVisibility(View.GONE);
-                    tvUsername.setText(dataList.get(0).getNamaLoket());
-                    tvId.setText("Id Loket : " + dataList.get(0).getIdLoket());
-                    tvSaldo.setText("Rp " + NumberFormat.getNumberInstance(new Locale("in", "ID")).format(Integer.valueOf(menu.getSaldo())));
-                } else {
-                    libraryManager.errorShow(menu.getResponse().replace("KILLME:", ""), MainActivity.this);
-                }
+                            tvUsername.setText(dataList.get(0).getNamaLoket());
+                            tvId.setText("Id Loket : " + dataList.get(0).getIdLoket());
+                            tvSaldo.setText("Rp " + NumberFormat.getNumberInstance(new Locale("in", "ID")).format(Integer.valueOf(menu.getSaldo())));
+                        } else {
+                            libraryManager.errorShow(menu.getResponse().replace("KILLME:", ""), MainActivity.this);
+                        }
 
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        libraryManager.onError(error, MainActivity.this);
+                    }
+                });
+                return null;
             }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                libraryManager.onError(error, MainActivity.this);
-            }
-        });
+        }.execute();
     }
 
     // Init New Object
