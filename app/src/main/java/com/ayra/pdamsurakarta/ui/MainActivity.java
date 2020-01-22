@@ -229,7 +229,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         if (backPressedOnce) {
-            super.onBackPressed();
+            finish();
             return;
         }
         backPressedOnce = true;
