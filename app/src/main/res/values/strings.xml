@@ -75,4 +75,5 @@
     <string name="denda_title">Denda</string>
     <string name="admin_title">Biaya Admin</string>
     <string name="total_pembayaran_title">Total Pembayaran</string>
+    <string name="powered_by">Powered by PT Teleanjar Indonesia</string>
 </resources>

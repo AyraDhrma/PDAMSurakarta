@@ -224,8 +224,13 @@ public class StatusPaymentActivity extends AppCompatActivity {
     // Handler Arrow Back Toolbar
     @Override
     public boolean onSupportNavigateUp() {
-        finish();
+        startActivity(new Intent(StatusPaymentActivity.this, PaymentActivity.class));
         return false;
+    }
+
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(StatusPaymentActivity.this, PaymentActivity.class));
     }
 
 }
