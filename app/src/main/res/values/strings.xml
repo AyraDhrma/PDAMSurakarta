@@ -62,7 +62,7 @@
     <string name="indonesia">-indonesia</string>
     <string name="auth_login">auth/login</string>
     <string name="register_token">content/register_token_fcm</string>
-    <string name="product_pdam">TELE-PDAM-SURAKARTA_V2</string>
+    <string name="product_pdam">TELE-PDAM-SURAKARTA_TP</string>
     <string name="check_status">trx_androsolo/cek_status</string>
     <string name="trx_pay">trx_androsolo/payment</string>
     <string name="content_menu">content/menu</string>
