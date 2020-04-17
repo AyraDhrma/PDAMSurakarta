@@ -23,6 +23,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.ayra.pdamsurakarta.R;
 import com.ayra.pdamsurakarta.api.MySingleton;
+import com.ayra.pdamsurakarta.entity.User;
 import com.ayra.pdamsurakarta.entity.Version;
 import com.ayra.pdamsurakarta.manager.LibraryManager;
 import com.ayra.pdamsurakarta.manager.SharedPreferencesManager;
@@ -73,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
     com.ayra.pdamsurakarta.entity.Menu menu;
     List<com.ayra.pdamsurakarta.entity.Menu.Data> dataList;
     Boolean backPressedOnce = false;
+    User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,11 +94,19 @@ public class MainActivity extends AppCompatActivity {
         initNewObject();
 
         // Load Version And Set Saldo
-        //        loadVersion();
-        setSaldo();
+        checkIfUserAlreadyLogin();
 
         // Listener
         listener();
+    }
+
+    private void checkIfUserAlreadyLogin() {
+        if (user.getIdpp() != null && user.getNamapp() != null) {
+            setSaldo();
+        } else {
+            startActivity(new Intent(MainActivity.this, LoginActivity.class));
+            finish();
+        }
     }
 
     // Hit API For Saldo And Username
@@ -151,6 +161,7 @@ public class MainActivity extends AppCompatActivity {
         libraryManager = LibraryManager.getInstance();
         bundle = new Bundle();
         gson = new Gson();
+        user = preferencesManager.loadDataUser();
     }
 
     // Listener

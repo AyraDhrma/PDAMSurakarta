@@ -11,7 +11,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.ayra.pdamsurakarta.R;
 import com.ayra.pdamsurakarta.api.MySingleton;
-import com.ayra.pdamsurakarta.entity.User;
 import com.ayra.pdamsurakarta.entity.Version;
 import com.ayra.pdamsurakarta.manager.LibraryManager;
 import com.ayra.pdamsurakarta.manager.SharedPreferencesManager;
@@ -90,19 +89,10 @@ public class SplashScreen extends AppCompatActivity {
     // Process Splash Screen
     private void processSplash() {
         sharedPreferencesManager.saveVersion(version);
-
-        User user = sharedPreferencesManager.loadDataUser();
-
         progressBar.setVisibility(View.GONE);
-        if (user.getIdpp() != null && user.getNamapp() != null) {
             intent = new Intent(SplashScreen.this, MainActivity.class);
             startActivity(intent);
             finish();
-        } else {
-            intent = new Intent(SplashScreen.this, LoginActivity.class);
-            startActivity(intent);
-            finish();
-        }
     }
 
     // Setup Progress Dialog
