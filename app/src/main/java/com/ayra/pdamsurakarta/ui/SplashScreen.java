@@ -90,7 +90,7 @@ public class SplashScreen extends AppCompatActivity {
     private void processSplash() {
         sharedPreferencesManager.saveVersion(version);
 
-        intent = new Intent(SplashScreen.this, MainActivity.class);
+        intent = new Intent(SplashScreen.this, LoginActivity.class);
         startActivity(intent);
         finish();
 

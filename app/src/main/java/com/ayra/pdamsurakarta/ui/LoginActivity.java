@@ -5,6 +5,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.telephony.TelephonyManager;
@@ -151,14 +152,19 @@ public class LoginActivity extends AppCompatActivity {
     private void getUniqueDevice() {
         telephonyManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
         if (telephonyManager != null) {
-            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE) != android.content.pm.PackageManager.PERMISSION_GRANTED) {
-                checkUniqueDevice();
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                String UNIQUEID = Settings.Secure.getString(this.getContentResolver(), Settings.Secure.ANDROID_ID);
+                sharedPreferencesManager.saveUniqueDevice(UNIQUEID);
             } else {
-                unique = telephonyManager.getDeviceId();
-                if (unique == null || unique.length() == 0) {
-                    unique = Settings.Secure.getString(LoginActivity.this.getContentResolver(), Settings.Secure.ANDROID_ID);
+                if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE) != android.content.pm.PackageManager.PERMISSION_GRANTED) {
+                    checkUniqueDevice();
+                } else {
+                    unique = telephonyManager.getDeviceId();
+                    if (unique == null || unique.length() == 0) {
+                        unique = Settings.Secure.getString(LoginActivity.this.getContentResolver(), Settings.Secure.ANDROID_ID);
+                    }
+                    sharedPreferencesManager.saveUniqueDevice(unique);
                 }
-                sharedPreferencesManager.saveUniqueDevice(unique);
             }
         }
     }
